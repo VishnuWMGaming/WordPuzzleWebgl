@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+  <title>Unity WebGL - Portrait Template</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas"></canvas>
+    <div id="rotate-overlay" class="hidden">
+      <div class="rotate-box">
+        <p>Please rotate your device to portrait</p>
+      </div>
+    </div>
+    <div id="loading-bar">
+      <div id="loading-bar-full"></div>
+    </div>
+  </div>
+
+  <!-- Unity WebGL loader script produced by your build.
+       Unity 2020+ produces Build/<YourBuild>.loader.js which defines createUnityInstance.
+       When you build, make sure the Build folder is placed next to the template index. -->
+  <script src="Build/<Word-Puzzle>.loader.js"></script>
+
+  <!-- Template helper -->
+  <script src="template.js"></script>
+
+  <script>
+    // Configure these to match your build filenames (output by Unity)
+    const unityBuild = {
+      dataUrl: "Build/<Word-Puzzle>.data",
+      frameworkUrl: "Build/<Word-Puzzle>.framework.js",
+      codeUrl: "Build/<Word-Puzzle>.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Company",
+      productName: "Product",
+      productVersion: "1.0",
+    };
+
+    const canvas = document.getElementById("unity-canvas");
+    const loadingBarFull = document.getElementById("loading-bar-full");
+
+    // createUnityInstance is defined in the <YourBuildName>.loader.js that Unity exports
+    createUnityInstance(canvas, unityBuild, (progress) => {
+      loadingBarFull.style.width = (100 * progress) + "%";
+    }).then((instance) => {
+      // called when ready
+      document.getElementById("loading-bar").style.display = "none";
+      window.unityInstance = instance;
+    }).catch((message) => {
+      alert("Failed to load Unity: " + message);
+    });
+  </script>
+</body>
+</html>

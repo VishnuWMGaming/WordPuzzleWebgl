@@ -1,0 +1,86 @@
+/* Basic reset */
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* container centers the canvas */
+#unity-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Portrait design reference (width x height) */
+#unity-canvas {
+  display: block;
+  background: #000;
+  /* native pixel size will be set by Unity; we override displayed CSS size here */
+  width: 360px;   /* will be changed by template.js */
+  height: 640px;  /* will be changed by template.js */
+  image-rendering: optimizeSpeed;
+  max-width: none;
+  max-height: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border-radius: 12px;
+}
+
+/* Loading bar */
+#loading-bar {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 600px;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 20;
+}
+#loading-bar-full {
+  height: 100%;
+  width: 0%;
+  background: rgba(255,255,255,0.9);
+  transition: width 0.1s linear;
+}
+
+/* Rotate overlay when device in landscape */
+#rotate-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  text-align: center;
+  padding: 24px;
+}
+#rotate-overlay.hidden {
+  display: none;
+}
+.rotate-box {
+  max-width: 320px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* Desktop: allow scaling up to fill viewport while keeping portrait aspect */
+@media (min-aspect-ratio: 9/16) {
+  #unity-canvas { /* relatively narrow; will be scaled by JS */
+    /* CSS size will be set in JS for precise scaling */
+  }
+}
